@@ -1,0 +1,2 @@
+#composer alias
+alias composer="php composer.phar"
