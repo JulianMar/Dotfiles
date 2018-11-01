@@ -22,5 +22,11 @@ export NVM_DIR="$HOME/.nvm"
 # add bin to path
 PATH+=:$HOME/bin
 
+# use powerline font
+# . /usr/share/powerline/bindings/zsh/powerline.zsh
+
 # add alias
-source .aliasrc
+source $HOME/.aliasrc
+
+# add functions
+source $HOME/.functionsrc

@@ -1,0 +1,4 @@
+# copy into clipboard
+copy() {
+     xclip -selection clipboard $1
+}

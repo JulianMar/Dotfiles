@@ -6,74 +6,95 @@ sudo apt-get -y install \
 	zsh \
 	git \
 	vim \
-	htop
+	htop \
+	powerline 
 
 
 # make zsh the default prompt
 chsh -s $(which zsh)
 
 # install oh-my-zsh
-sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+if [ ! -d $HOME/.oh-my-zsh ] ; then
+	sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+fi
+
+# install cb
+rm $HOME/bin/cb
+ln bin/cb $HOME/bin/cb
 
 # symlink .zshrc to home 
 rm $HOME/.zshrc
 ln .zshrc $HOME/.zshrc
+
+rm $HOME/.aliasrc
 ln .aliasrc $HOME/.aliasrc
+
+rm $HOME/.functionsrc
+ln .functionsrc $HOME/.functionsrc
 
 ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
 
 # install astronaut theme
-git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
-ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+if [ ! -d $ZSH_CUSTOM/themes/spaceship-prompt ] ; then
+	git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
+	ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+fi
 
 # Add Auto Suggestions
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+if [ ! -d $ZSH_CUSTOM/plugins/zsh-autosuggestions ] ; then 
+	git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+fi
 
 # Install Node via nvm
-git clone https://github.com/creationix/nvm.git $HOME/.nvm
+if [ ! -d $HOME/.nvm ] ; then 
+	git clone https://github.com/creationix/nvm.git $HOME/.nvm
+fi
 
-. $HOME/.nvm/nvm.sh
+. $HOME/.nvm/nvm.sh 
 
 nvm install node
 
 
-
 # Install Docker
-sudo apt-get update
+if ! type docker > /dev/null ; then
+	sudo apt-get update
 
-sudo apt-get -y install \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    software-properties-common
+	sudo apt-get -y install \
+		apt-transport-https \
+		ca-certificates \
+		curl \
+		software-properties-common
 
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
-sudo add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-   $(lsb_release -cs) \
-   stable"
+	sudo add-apt-repository \
+	"deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+	bionic \
+	stable"
 
-sudo apt-get update
+	sudo apt-get update
 
-sudo apt-get -y install docker-ce
+	sudo apt-get -y install docker-ce
 
-sudo usermod -aG docker $USER
+	sudo usermod -aG docker $USER
+
+fi
 
 # Install Docker Compose
-sudo apt-get -y install docker-compose
-
-# Install Phpstorm
-
+if ! type docker-compose > /dev/null ; then
+	sudo apt-get -y install docker-compose
+fi
 
 # Install vsCode
-curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
-sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
-sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+if ! type code-insiders > /dev/null ; then
+	curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+	sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
+	sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
 
-sudo apt-get -y install apt-transport-https
-sudo apt-get update
-sudo apt-get -y install code-insiders
+	sudo apt-get -y install apt-transport-https
+	sudo apt-get update
+	sudo apt-get -y install code-insiders
+fi
 
 
 # Install PHP
@@ -85,4 +106,34 @@ sudo apt-get -y install \
 	php-xdebug
 
 # Install Composer
-./composer.sh
+if [ ! -f $HOME/bin/composer.phar ] ; then
+	./composer.sh
+fi
+
+# Install Sublime Merge
+if ! type smerge > /dev/null ; then
+	wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
+
+	echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+
+	sudo apt-get update
+	sudo apt-get install sublime-merge
+fi
+
+# Install laradock
+if [ ! -d $HOME/Projects/laradock ] ; then
+	git clone https://github.com/Laradock/laradock.git $HOME/Projects/laradock
+
+	cp laradock/.env $HOME/Projects/laradock/.env
+	cp laradock/tee.conf $HOME/Projects/laradock/nginx/sites/tee.conf
+fi
+
+OLDPATH=$PWD
+
+cd $HOME/Projects/laradock
+
+docker-compose -v
+
+docker-compose up -d nginx mysql redis
+
+cd $OLDPATH
