@@ -7,7 +7,8 @@ sudo apt-get -y install \
 	git \
 	vim \
 	htop \
-	powerline 
+	powerline \
+	bison
 
 
 # make zsh the default prompt
@@ -18,11 +19,7 @@ if [ ! -d $HOME/.oh-my-zsh ] ; then
 	sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 fi
 
-# install cb
-rm $HOME/bin/cb
-ln bin/cb $HOME/bin/cb
-
-# symlink .zshrc to home 
+# symlink .zshrc to home
 rm $HOME/.zshrc
 ln .zshrc $HOME/.zshrc
 
@@ -41,16 +38,16 @@ if [ ! -d $ZSH_CUSTOM/themes/spaceship-prompt ] ; then
 fi
 
 # Add Auto Suggestions
-if [ ! -d $ZSH_CUSTOM/plugins/zsh-autosuggestions ] ; then 
+if [ ! -d $ZSH_CUSTOM/plugins/zsh-autosuggestions ] ; then
 	git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 fi
 
 # Install Node via nvm
-if [ ! -d $HOME/.nvm ] ; then 
+if [ ! -d $HOME/.nvm ] ; then
 	git clone https://github.com/creationix/nvm.git $HOME/.nvm
 fi
 
-. $HOME/.nvm/nvm.sh 
+. $HOME/.nvm/nvm.sh
 
 nvm install node
 
@@ -137,3 +134,17 @@ docker-compose -v
 docker-compose up -d nginx mysql redis
 
 cd $OLDPATH
+
+# Install Go
+
+if ! type go > /dev/null ; then
+
+	zsh < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+
+	source $HOME/.gvm/scripts/gvm
+
+	gvm install go1.11.2
+
+	gvm use go1.11.2
+
+fi

@@ -30,3 +30,5 @@ source $HOME/.aliasrc
 
 # add functions
 source $HOME/.functionsrc
+
+[[ -s "/home/julian/.gvm/scripts/gvm" ]] && source "/home/julian/.gvm/scripts/gvm"
