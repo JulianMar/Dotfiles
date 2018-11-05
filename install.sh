@@ -100,7 +100,8 @@ sudo apt-get -y install \
 	php-bcmath \
 	php-mbstring \
 	php-curl \
-	php-xdebug
+	php-xdebug \
+	php-dom
 
 # Install Composer
 if [ ! -f $HOME/bin/composer.phar ] ; then

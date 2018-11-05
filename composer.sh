@@ -14,4 +14,7 @@ mkdir $HOME/bin
 php composer-setup.php --quiet --install-dir=$HOME/bin
 RESULT=$?
 rm composer-setup.php
+
+php $HOME/bin/composer.phar global require hirak/prestissimo
+
 exit $RESULT
