@@ -147,4 +147,6 @@ if ! type go > /dev/null ; then
 
 	gvm use go1.11.2
 
+	gvm linkthis $HOME/Projects/go
+
 fi

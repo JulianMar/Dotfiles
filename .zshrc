@@ -22,8 +22,9 @@ export NVM_DIR="$HOME/.nvm"
 # add bin to path
 PATH+=:$HOME/bin
 
-# use powerline font
-# . /usr/share/powerline/bindings/zsh/powerline.zsh
+# GVM Config
+[[ -s "/home/julian/.gvm/scripts/gvm" ]] && source "/home/julian/.gvm/scripts/gvm"
+gvm use go1.11.2 > /dev/null
 
 # add alias
 source $HOME/.aliasrc
@@ -31,4 +32,4 @@ source $HOME/.aliasrc
 # add functions
 source $HOME/.functionsrc
 
-[[ -s "/home/julian/.gvm/scripts/gvm" ]] && source "/home/julian/.gvm/scripts/gvm"
+
