@@ -1,6 +1,7 @@
 # composer alias
-alias composer="php $HOME/bin/composer.phar"
+alias com="php $HOME/bin/composer.phar"
 
 # move to projects
 alias pj="cd $HOME/Projects"
 
+alias code="code-insiders"

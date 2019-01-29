@@ -8,8 +8,11 @@ sudo apt-get -y install \
 	vim \
 	htop \
 	powerline \
-	bison
-
+	bison \
+	libnss3-tools \
+	default-jre \
+	default-jdk \
+	curl
 
 # make zsh the default prompt
 chsh -s $(which zsh)
@@ -28,6 +31,9 @@ ln .aliasrc $HOME/.aliasrc
 
 rm $HOME/.functionsrc
 ln .functionsrc $HOME/.functionsrc
+
+rm $HOME/.envrc
+ln .envrc $HOME/.envrc
 
 ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
 
@@ -101,7 +107,8 @@ sudo apt-get -y install \
 	php-mbstring \
 	php-curl \
 	php-xdebug \
-	php-dom
+	php-dom \
+	php-mysql
 
 # Install Composer
 if [ ! -f $HOME/bin/composer.phar ] ; then
@@ -123,7 +130,6 @@ if [ ! -d $HOME/Projects/laradock ] ; then
 	git clone https://github.com/Laradock/laradock.git $HOME/Projects/laradock
 
 	cp laradock/.env $HOME/Projects/laradock/.env
-	cp laradock/tee.conf $HOME/Projects/laradock/nginx/sites/tee.conf
 fi
 
 OLDPATH=$PWD
@@ -137,7 +143,6 @@ docker-compose up -d nginx mysql redis
 cd $OLDPATH
 
 # Install Go
-
 if ! type go > /dev/null ; then
 
 	zsh < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
@@ -150,4 +155,18 @@ if ! type go > /dev/null ; then
 
 	gvm linkthis $HOME/Projects/go
 
+fi
+
+if ! type oc > /dev/null ; then
+	VERSION=openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit
+
+	curl -L https://github.com/openshift/origin/releases/download/v3.11.0/$VERSION.tar.gz -o oc.tar.gz -s
+
+	tar -zxf oc.tar.gz $VERSION
+
+	mv $VERSION/oc $HOME/bin/oc
+	mv $VERSION/kubectl $HOME/bin/kubectl
+
+	rm -rf $VERSION
+	rm oc.tar.gz
 fi

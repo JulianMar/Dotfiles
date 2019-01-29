@@ -2,3 +2,15 @@
 copy() {
      xclip -selection clipboard $1
 }
+
+xdebug() {
+  FILE="/etc/php/7.2/cli/conf.d/20-xdebug.ini"
+  TEXT=$(grep "#zend" $FILE)
+  if [[ -z $TEXT ]]; then
+    sed -i 's/zend/#zend/' $FILE
+    echo 'Disabled'
+  else
+    sed -i 's/#zend/zend/' $FILE
+    echo 'Enabled'
+  fi
+}
