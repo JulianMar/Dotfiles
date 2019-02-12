@@ -35,8 +35,6 @@ ln .functionsrc $HOME/.functionsrc
 rm $HOME/.envrc
 ln .envrc $HOME/.envrc
 
-ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
-
 # install astronaut theme
 if [ ! -d $ZSH_CUSTOM/themes/spaceship-prompt ] ; then
 	git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
@@ -56,7 +54,6 @@ fi
 . $HOME/.nvm/nvm.sh
 
 nvm install node
-
 
 # Install Docker
 if ! type docker > /dev/null ; then
