@@ -5,3 +5,5 @@ alias com="php $HOME/bin/composer.phar"
 alias pj="cd $HOME/Projects"
 
 alias code="code-insiders"
+
+alias art="php artisan"

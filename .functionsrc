@@ -4,7 +4,7 @@ copy() {
 }
 
 xdebug() {
-  FILE="/etc/php/7.2/cli/conf.d/20-xdebug.ini"
+  FILE="/etc/php/7.3/cli/conf.d/20-xdebug.ini"
   TEXT=$(grep "#zend" $FILE)
   if [[ -z $TEXT ]]; then
     sed -i 's/zend/#zend/' $FILE

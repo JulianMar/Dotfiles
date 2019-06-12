@@ -35,6 +35,10 @@ ln .functionsrc $HOME/.functionsrc
 rm $HOME/.envrc
 ln .envrc $HOME/.envrc
 
+ln -sf pulse/daemon.conf $HOME/.config/pulse/daemon.conf
+
+sudo ln -sf etc/asound.conf /etc/asound.conf
+
 # install astronaut theme
 if [ ! -d $ZSH_CUSTOM/themes/spaceship-prompt ] ; then
 	git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
@@ -166,4 +170,13 @@ if ! type oc > /dev/null ; then
 
 	rm -rf $VERSION
 	rm oc.tar.gz
+fi
+
+if ! type rustup > /dev/null ; then
+	curl https://sh.rustup.rs -sSf | sh
+
+	source $HOME/.cargo/env
+
+	rustup update
+	rustup component add clippy
 fi
