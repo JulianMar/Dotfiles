@@ -24,8 +24,6 @@ PATH+=:$GOROOT/bin
 PATH+=:$HOME/.cargo/bin
 
 # GVM Config
-[[ -s "/home/julian/.gvm/scripts/gvm" ]] && source "/home/julian/.gvm/scripts/gvm"
-gvm use go1.11.2 > /dev/null
 
 # add alias
 source $HOME/.aliasrc
@@ -41,3 +39,9 @@ if [ -f '/home/julian/google-cloud-sdk/path.zsh.inc' ]; then . '/home/julian/goo
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/julian/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/julian/google-cloud-sdk/completion.zsh.inc'; fi
+
+# php-brew
+[[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc
+
+# z instance
+. $HOME/bin/z.sh

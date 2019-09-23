@@ -7,3 +7,19 @@ alias pj="cd $HOME/Projects"
 alias code="code-insiders"
 
 alias art="php artisan"
+
+alias ocp="oc get projects"
+
+alias ocr="oc get pod|grep Running"
+
+alias ocl="oc logs -f"
+
+alias oc-r="oc project russmedia-tee"
+
+alias oc-rd="oc project dev-russmedia-tee"
+
+alias oc-s="oc project solutions-tee"
+
+alias oc-sd="oc project solutions-tee-dev"
+
+alias oc-ss="oc project solutions-tee-staging"

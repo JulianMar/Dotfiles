@@ -4,13 +4,21 @@ copy() {
 }
 
 xdebug() {
-  FILE="/etc/php/7.3/cli/conf.d/20-xdebug.ini"
-  TEXT=$(grep "#zend" $FILE)
-  if [[ -z $TEXT ]]; then
-    sed -i 's/zend/#zend/' $FILE
+  FILE="/Users/Julian/.phpbrew/php/php-7.3.6/var/db/xdebug.ini"
+  ENABLED=$(phpbrew ext | grep "\[\*\] xdebug")
+  if [ $ENABLED ]; then
+    phpbrew ext disable xdebug
     echo 'Disabled'
   else
-    sed -i 's/#zend/zend/' $FILE
+    phpbrew ext enable xdebug
     echo 'Enabled'
   fi
+}
+
+oce() {
+  oc exec -it "$1" bash
+}
+
+__git_files () {
+    _wanted files expl 'local files' _files
 }

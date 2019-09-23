@@ -180,3 +180,13 @@ if ! type rustup > /dev/null ; then
 	rustup update
 	rustup component add clippy
 fi
+
+if ! type z > /dev/null ; then
+	curl -L https://github.com/rupa/z/archive/v1.9.zip -o z.zip -s
+
+	unzip -o z.zip
+
+	mv z-1.9/z.sh $HOME/bin/z.sh
+
+	chmod +x $HOME/bin/z.sh
+fi
