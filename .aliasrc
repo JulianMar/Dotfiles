@@ -2,7 +2,7 @@
 alias com="php $HOME/bin/composer.phar"
 
 # move to projects
-alias pj="cd $HOME/Projects"
+alias pj="cd /Volumes/Projects"
 
 alias code="code-insiders"
 

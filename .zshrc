@@ -43,5 +43,9 @@ if [ -f '/home/julian/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/juli
 # php-brew
 [[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc
 
+# deno autocompletion
+deno completions zsh > deno.bash
+source deno.bash
+
 # z instance
 . $HOME/bin/z.sh

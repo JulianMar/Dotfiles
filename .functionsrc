@@ -4,7 +4,7 @@ copy() {
 }
 
 xdebug() {
-  FILE="/Users/Julian/.phpbrew/php/php-7.3.6/var/db/xdebug.ini"
+  FILE="/Users/Julian/.phpbrew/php/php-7.4.5/var/db/xdebug.ini"
   ENABLED=$(phpbrew ext | grep "\[\*\] xdebug")
   if [ $ENABLED ]; then
     phpbrew ext disable xdebug
